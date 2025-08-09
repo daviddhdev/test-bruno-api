@@ -13,3 +13,5 @@ with open("openapi.json", "w") as f:
         version=app.version,
         routes=app.routes
     ), f, indent=2)
+
+

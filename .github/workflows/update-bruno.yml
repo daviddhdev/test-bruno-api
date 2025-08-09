@@ -1,0 +1,47 @@
+name: Update Bruno Collections
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-bruno:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout backend repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install fastapi
+
+      - name: Generate openapi.json
+        run: python scripts/getOpenapi.py
+
+      - name: Clone Bruno collections repo
+        env:
+          BRUNO_REPO: https://github.com/daviddhdev/test-bruno-collections
+        run: git clone $BRUNO_REPO collections
+
+      - name: Install Bruno CLI
+        run: npm install -g @usebruno/cli@2.8.1
+
+      - name: Import OpenAPI to Bruno collections
+        run: bru import openapi.json -o collections
+
+      - name: Commit and push changes to Bruno repo
+        working-directory: collections
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "Update Bruno collections from API spec"
+          git push
