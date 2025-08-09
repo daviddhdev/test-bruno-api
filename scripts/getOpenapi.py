@@ -15,3 +15,5 @@ with open("openapi.json", "w") as f:
     ), f, indent=2)
 
 
+# rm -rf ./FastAPI
+# bru import openapi   --source http://127.0.0.1:8000/openapi.json   --output ./   --collection-name "FastAPI"

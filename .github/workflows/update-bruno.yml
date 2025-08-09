@@ -35,7 +35,7 @@ jobs:
         run: npm install -g @usebruno/cli@2.8.1
 
       - name: Import OpenAPI to Bruno collections
-        run: bru import openapi.json -o collections
+        run: bru import openapi  --source openapi.json --output ./ --collection-name "FastAPI"
 
       - name: Commit and push changes to Bruno repo
         working-directory: collections
