@@ -34,6 +34,9 @@ jobs:
       - name: Install Bruno CLI
         run: npm install -g @usebruno/cli@2.8.1
 
+      - name: Delete existing collection
+        run: rm -rf collections/FastAPI
+
       - name: Import OpenAPI to Bruno collections
         run: bru import openapi --source openapi.json --output collections/ --collection-name "FastAPI"
 
