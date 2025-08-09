@@ -28,7 +28,7 @@ jobs:
 
       - name: Clone Bruno collections repo
         env:
-          BRUNO_REPO: https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/daviddhdev/test-bruno-collections.git
+          BRUNO_REPO: https://x-access-token:${{ secrets.PAT_FOR_BRUNO }}@github.com/daviddhdev/test-bruno-collections.git
         run: git clone $BRUNO_REPO collections
 
       - name: Install Bruno CLI
